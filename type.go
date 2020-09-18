@@ -1,6 +1,6 @@
 package main
 
-type customMap map[string]bool
+type customMap map[string]int
 
 type pangram struct {
 	sentence       string
