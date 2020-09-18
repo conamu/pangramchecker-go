@@ -1,20 +1,11 @@
 package main
 
 import (
-	"fmt"
 	"regexp"
 	"strings"
 )
 
-func (pangram *pangram) cleanInput() {
-	reg, _ := regexp.Compile("[^a-zA-Z]+")
-	pangram.data = strings.ToLower(pangram.sentence)
-	pangram.data = reg.ReplaceAllString(pangram.data, "")
-	fmt.Println(pangram.data)
-}
-
-func (pangram *pangram) checkPangram() {
-
+func (pangram *pangram) initPangramData() {
 	pangram.presentChars = map[string]int{
 		"a": 0,
 		"b": 0,
@@ -43,7 +34,16 @@ func (pangram *pangram) checkPangram() {
 		"y": 0,
 		"z": 0,
 	}
+	pangram.missing = make([]string, 26)
+}
 
+func (pangram *pangram) cleanInput() {
+	reg, _ := regexp.Compile("[^a-zA-Z]+")
+	pangram.data = strings.ToLower(pangram.sentence)
+	pangram.data = reg.ReplaceAllString(pangram.data, "")
+}
+
+func (pangram *pangram) checkPangram() {
 	for _, c := range pangram.data {
 		for k := range pangram.presentChars {
 			if string(c) == string(k) {
@@ -53,8 +53,32 @@ func (pangram *pangram) checkPangram() {
 
 	}
 
+	for _, i := range pangram.presentChars {
+		if i == 0 || i > 1 {
+			pangram.presentCharN++
+		} else if i == 1 {
+			pangram.presentUniqeCharN++
+		} else if i == 0 {
+			pangram.pangram = false
+			pangram.perfectPangram = false
+		}
+	}
+
+	if (pangram.presentCharN + pangram.presentUniqeCharN) == 26 {
+		pangram.pangram = true
+	}
+
+	if pangram.presentUniqeCharN == 26 {
+		pangram.perfectPangram = true
+	}
 }
 
-func (pangram *pangram) checkPerfectPangram() {
-
+func (pangram *pangram) checkMissing() {
+	g := 0
+	for i, v := range pangram.presentChars {
+		if v == 0 {
+			pangram.missing[g] = i
+			g++
+		}
+	}
 }

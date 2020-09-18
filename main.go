@@ -6,10 +6,11 @@ func pangramchecker(pangram *pangram) {
 	pangram.cleanInput()
 	switch lenData := len(pangram.data); {
 	case lenData < 24:
+		pangram.checkMissing()
 		endMenu(pangram)
 	case lenData >= 24:
 		pangram.checkPangram()
-		pangram.checkPerfectPangram()
+		pangram.checkMissing()
 		endMenu(pangram)
 		pangramchecker(pangram)
 	}
