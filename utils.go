@@ -74,9 +74,9 @@ func decor(allText, allMenuPoints []string, decorChar string, lineWidth int, men
 	}
 
 	// Place a separator line
-	completeArray[(len(allMenuPoints) + lineWidth)] = make([]string, menuWidth)
+	completeArray[(len(allText) + lineWidth)] = make([]string, menuWidth)
 	for i := 0; i < menuWidth; i++ {
-		completeArray[(len(allMenuPoints) + lineWidth)][i] = decorChar
+		completeArray[(len(allText) + lineWidth)][i] = decorChar
 	}
 
 	// Place the Menu points
