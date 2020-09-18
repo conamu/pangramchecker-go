@@ -15,7 +15,8 @@ func mainMenu() {
 		"Pangramchecker",
 		"Welcome to the Go-Pangramchecker!",
 		"Please enter a Sentence to check."}
-	menuDescription := []string{"A pangram is a Sentence in which each",
+	menuDescription := []string{
+		"A pangram is a Sentence in which each",
 		"Character is present one atleast one Time."}
 
 	fmt.Print(decor(menuText, menuDescription, decoration, lineThicness, menuWidth), "\n")
@@ -24,9 +25,6 @@ func mainMenu() {
 func endMenu(pangram *pangram) {
 	var stateString string
 	var missingString string
-
-	pangram.pangram = false
-	pangram.missing = []string{"A", "B"}
 
 	if pangram.perfectPangram == false && pangram.pangram == true {
 		missingString = "There are no Characters missing."
