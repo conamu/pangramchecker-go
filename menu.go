@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 // Menu configuration
 var decoration string = "@"
@@ -20,6 +23,16 @@ func mainMenu() {
 
 func endMenu(pangram *pangram) {
 	var stateString string
+	var missingString string
+
+	pangram.pangram = false
+	pangram.missing = []string{"A", "B"}
+
+	if pangram.perfectPangram == false && pangram.pangram == true {
+		missingString = "There are no Characters missing."
+	} else if pangram.perfectPangram == false && pangram.pangram == false {
+		missingString = "These Characters are missing: " + strings.Join(pangram.missing, ",")
+	}
 
 	if pangram.perfectPangram == true {
 		stateString = "is a perfect Pangram."
@@ -33,7 +46,9 @@ func endMenu(pangram *pangram) {
 		"Pangramchecker",
 		"Your sentence:",
 		pangram.sentence}
-	menuPangram := []string{stateString}
+	menuPangram := []string{
+		stateString,
+		missingString}
 
 	fmt.Print(decor(menuText, menuPangram, decoration, lineThicness, menuWidth), "\n")
 }
