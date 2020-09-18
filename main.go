@@ -2,6 +2,17 @@ package main
 
 func pangramchecker(pangram *pangram) {
 	mainMenu()
+	pangram.sentence = getIO()
+	pangram.cleanInput()
+	switch lenData := len(pangram.data); {
+	case lenData < 24:
+		endMenu(pangram)
+	case lenData >= 24:
+		pangram.checkPangram()
+		pangram.checkPerfectPangram()
+		endMenu(pangram)
+		pangramchecker(pangram)
+	}
 }
 
 func main() {

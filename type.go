@@ -6,4 +6,5 @@ type pangram struct {
 	nMissing       string
 	pangram        bool
 	perfectPangram bool
+	data           string
 }

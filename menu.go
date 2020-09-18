@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 // Menu configuration
-var decoration string = "#"
+var decoration string = "@"
 var menuWidth int = 70
 var lineThicness int = 2
 
@@ -11,7 +11,7 @@ func mainMenu() {
 	menuText := []string{
 		"Pangramchecker",
 		"Welcome to the Go-Pangramchecker!",
-		"Please enter a Sentence to begin."}
+		"Please enter a Sentence to check."}
 	menuDescription := []string{"A pangram is a Sentence in which each",
 		"Character is present one atleast one Time."}
 
@@ -26,7 +26,7 @@ func endMenu(pangram *pangram) {
 	} else if pangram.pangram == true {
 		stateString = "is just a normal Pangram."
 	} else {
-		stateString = "i not a Pangram."
+		stateString = "is not a Pangram."
 	}
 
 	menuText := []string{
