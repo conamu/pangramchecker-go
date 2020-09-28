@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"strings"
 )
 
@@ -29,7 +30,7 @@ func endMenu(pangram *pangram) {
 	if pangram.perfectPangram == false && pangram.pangram == true {
 		missingString = "There are no Characters missing."
 	} else if pangram.perfectPangram == false && pangram.pangram == false {
-		missingString = "These Characters are missing: " + strings.Join(pangram.missing, ",")
+		missingString = "Missing: " + strings.Join(pangram.missing, ",")
 	}
 
 	if pangram.perfectPangram == true {
@@ -46,7 +47,16 @@ func endMenu(pangram *pangram) {
 		pangram.sentence}
 	menuPangram := []string{
 		stateString,
-		missingString}
+		missingString,
+		"Do you want to Exit?",
+		"1) Yes",
+		"2) No"}
 
 	fmt.Print(decor(menuText, menuPangram, decoration, lineThicness, menuWidth), "\n")
+	switch getIO() {
+	case "1":
+		os.Exit(0)
+	case "2":
+		pangramchecker(pangram)
+	}
 }

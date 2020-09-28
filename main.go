@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func pangramchecker(pangram *pangram) {
 	pangram.initPangramData()
 	mainMenu()
@@ -8,6 +10,7 @@ func pangramchecker(pangram *pangram) {
 	switch lenData := len(pangram.data); {
 	case lenData < 24:
 		pangram.checkMissing()
+		fmt.Println(pangram.missing)
 		endMenu(pangram)
 	case lenData >= 24:
 		pangram.checkPangram()

@@ -1,12 +1,16 @@
 package main
 
 import (
-	"fmt"
 	"regexp"
 	"strings"
 )
 
 func (pangram *pangram) initPangramData() {
+	// Reset states for the new sentence.
+	pangram.pangram = false
+	pangram.perfectPangram = false
+	pangram.presentCharN = 0
+	pangram.presentUniqeCharN = 0
 	pangram.presentChars = map[string]int{
 		"a": 0,
 		"b": 0,
@@ -46,20 +50,14 @@ func (pangram *pangram) cleanInput() {
 
 func (pangram *pangram) checkPangram() {
 
-	// Reset states for the new sentence.
-	pangram.pangram = false
-	pangram.perfectPangram = false
-
 	for _, c := range pangram.data {
 		for k := range pangram.presentChars {
 			if string(c) == string(k) {
 				pangram.presentChars[k]++
-
 			}
 		}
 
 	}
-	fmt.Println(pangram.presentChars)
 
 	for _, i := range pangram.presentChars {
 		if i > 1 {
@@ -72,9 +70,6 @@ func (pangram *pangram) checkPangram() {
 		}
 	}
 
-	fmt.Println(pangram.presentCharN)
-	fmt.Println(pangram.presentUniqeCharN)
-
 	if (pangram.presentCharN + pangram.presentUniqeCharN) == 26 {
 		pangram.pangram = true
 	}
@@ -86,6 +81,16 @@ func (pangram *pangram) checkPangram() {
 
 func (pangram *pangram) checkMissing() {
 	g := 0
+
+	for _, d := range pangram.data {
+		for i := range pangram.presentChars {
+			if string(d) == string(i) {
+				pangram.presentChars[i]++
+				break
+			}
+		}
+	}
+
 	for i, v := range pangram.presentChars {
 		if v == 0 {
 			pangram.missing[g] = i
