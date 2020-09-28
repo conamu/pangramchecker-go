@@ -1,6 +1,7 @@
 package main
 
 func pangramchecker(pangram *pangram) {
+	pangram.initPangramData()
 	mainMenu()
 	pangram.sentence = getIO()
 	pangram.cleanInput()

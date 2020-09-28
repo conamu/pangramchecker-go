@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"regexp"
 	"strings"
 )
@@ -45,16 +46,20 @@ func (pangram *pangram) cleanInput() {
 
 func (pangram *pangram) checkPangram() {
 	for _, c := range pangram.data {
+		fmt.Println(string(c))
 		for k := range pangram.presentChars {
+			fmt.Println(string(k))
 			if string(c) == string(k) {
 				pangram.presentChars[k]++
+
 			}
 		}
 
 	}
+	fmt.Println(pangram.presentChars)
 
 	for _, i := range pangram.presentChars {
-		if i == 0 || i > 1 {
+		if i == 0 || i >= 1 {
 			pangram.presentCharN++
 		} else if i == 1 {
 			pangram.presentUniqeCharN++
@@ -63,6 +68,9 @@ func (pangram *pangram) checkPangram() {
 			pangram.perfectPangram = false
 		}
 	}
+
+	fmt.Println(pangram.presentCharN)
+	fmt.Println(pangram.presentUniqeCharN)
 
 	if (pangram.presentCharN + pangram.presentUniqeCharN) == 26 {
 		pangram.pangram = true
