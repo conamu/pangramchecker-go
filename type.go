@@ -2,6 +2,7 @@ package main
 
 type customMap map[string]int
 
+// Custom type for pangram object
 type pangram struct {
 	sentence          string
 	missing           []string
