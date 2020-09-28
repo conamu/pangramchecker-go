@@ -45,10 +45,13 @@ func (pangram *pangram) cleanInput() {
 }
 
 func (pangram *pangram) checkPangram() {
+
+	// Reset states for the new sentence.
+	pangram.pangram = false
+	pangram.perfectPangram = false
+
 	for _, c := range pangram.data {
-		fmt.Println(string(c))
 		for k := range pangram.presentChars {
-			fmt.Println(string(k))
 			if string(c) == string(k) {
 				pangram.presentChars[k]++
 
@@ -59,7 +62,7 @@ func (pangram *pangram) checkPangram() {
 	fmt.Println(pangram.presentChars)
 
 	for _, i := range pangram.presentChars {
-		if i == 0 || i >= 1 {
+		if i > 1 {
 			pangram.presentCharN++
 		} else if i == 1 {
 			pangram.presentUniqeCharN++
